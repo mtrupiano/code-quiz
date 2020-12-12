@@ -17,10 +17,14 @@ main {
 }
 
 .btn {
-    background-color: blue;
+    background-color: #494748;
     color: rgb(231, 221, 221);
+    border-bottom: solid;
+    border-bottom-width: 3px;
+    border-color: #343233;
 }
 
 .btn:hover {
-    color: yellow;
+    color: #FFD152;
+    background-color: #343233;
 }
