@@ -15,31 +15,33 @@
 
     <body>
         <header>
-            <h1 class="display-3">Web Dev Quiz</h1>
+            <h1 class="display-3 mb-5">Web Dev Quiz</h1>
         </header>
 
-        <main class="container">
-            <p class="text-center">
-                Welcome to a simple multiple-choice web development quiz! 
-            </p>
-            <div class="row" id="start-btn">
-                <button class="btn btn-lg mb-2">Start!</button>
-            </div>
-            <div class="row" id="hiscore-btn">
-                <button class="btn">View High Scores</button>
-            </div>
-        </main>
+        <main class="container mt-2">
+            <section id="home">
 
-        <main class="container" id="question-form">
-            <h2 id="prompt-header"></h2>
+                <p class="text-center">
+                    Welcome to a simple multiple-choice web development quiz! 
+                </p>
+                <div class="row" id="start-btn">
+                    <button class="btn btn-lg mb-2">Start!</button>
+                </div>
+                <div class="row" id="hiscore-btn">
+                    <button class="btn">View High Scores</button>
+                </div>
+            </section>
 
-            <ul class="list-group" id="answer-list"></ul>
-            <p id="timer"></p>
-            
-        </main>
+            <section id="question-form">
+                <h2 id="prompt-header"></h2>
+                
+                <ul class="list-group" id="answer-list"></ul>
+                <p id="timer"></p>
+            </section>
 
-        <main class="container" id="view-hiscores">
-            <ol id="hiscore-list"></ol>
+            <section id="hiscore-view">
+                <ol id="hiscore-list"></ol>
+            </section>
         </main>
 
         
