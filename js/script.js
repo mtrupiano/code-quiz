@@ -3,22 +3,18 @@ var questions = [
         prompt: "Hello, how are you?",
         answer: "Fine, thanks.",
         wrongs: ["wrong1", "wrong2", "wrong3"],
-        used: false
     }, {
         prompt: "How's the weather?",
         answer: "It's raining",
         wrongs: ["wrong1", "wrong2", "wrong3"],
-        used: false
     }, {
-        prompt: "How old are you?",
-        answer: "2222",
-        wrongs: ["wrong1", "wrong2", "wrong3"],
-        used: false
+        prompt: "Unlike some other programming languages, JavaScript does not require you to specify the data type of variables. Because of this, JavaScript is reffered to as a ________ language.",
+        answer: "Weakly-typed",
+        wrongs: ["Strongly-typed", "Parametric", "Functional"],
     }, {
         prompt: "Hello, I love you, won't you tell me your name?",
         answer: "Fine, thanks.",
         wrongs: ["wrong1", "wrong2", "wrong3"],
-        used: false
     }
 ];
 
@@ -30,47 +26,12 @@ var timerEl         = document.querySelector("#timer");
 
 var endScreenSection = document.querySelector("#end-screen");
 var homeScreenSection = document.querySelector("#home");
+var hiscoreSection = document.querySelector("#hiscore-view");
 
 var newHiscoreForm = document.querySelector("#new-hiscore-form");
 
-newHiscoreForm.addEventListener("submit", function(event) {
-    event.preventDefault();
-
-    var newScore = {
-        name: newHiscoreForm.children[0].children[1].value,
-        score: -10
-    };
-
-    var scoresListStr = localStorage.getItem("hiscores");
-    if (!scoresListStr) {
-        var scores = [newScore];
-        localStorage.setItem("hiscores", JSON.stringify(scores));
-    } else {
-        var scores = JSON.parse(scoresListStr);
-        var i = 0;
-
-        while (i < scores.length && newScore.score < scores[i].score) {
-            i++;
-        }
-
-        scores.splice(i, 0, newScore);
-        localStorage.setItem("hiscores", JSON.stringify(scores));
-    }
-
-});
-
 var usedQuestions = [];
 var thisQuestion;
-
-answerListEl.addEventListener("click", function (event) {
-    if (event.target.textContent === thisQuestion.answer) {
-        // show "correct"
-        correct = true;
-    } else {
-        // show "incorrect"
-        correct = false;
-    }
-});
 
 function showQuestion() {
     // clear the question header and list
@@ -147,6 +108,28 @@ function endQuiz() {
 
 }
 
+// Render list of high scores stored in localStorage
+function showHiScores() {
+    var scoresListEl = document.querySelector("#hiscore-list");
+    scoresListEl.innerHTML = "";
+
+    hiscoreSection.style.display = "inline";
+
+    var scoresListStr = localStorage.getItem("hiscores");
+    if (!scoresListStr) {
+        document.querySelector("#no-scores").innerHTML = "No scores to display";
+        return;
+    }
+    document.querySelector("#no-scores").innerHTML = "";
+
+    var scoresList = JSON.parse(scoresListStr);
+    for (var i = 0; i < scoresList.length; i++) {
+        var newLi = document.createElement("li");
+        newLi.innerHTML = `${scoresList[i].name} - ${scoresList[i].score}`;
+        scoresListEl.appendChild(newLi);
+    }
+}
+
 startButton.addEventListener("click", function(event) {
     event.preventDefault();
     runQuiz();
@@ -157,7 +140,53 @@ hiscoreButton.addEventListener("click", function (event) {
     showHiScores();
 });
 
-function showHiScores() {
+// Clear list of scores from local storage
+document.querySelector("#clear-scores-btn").addEventListener("click", function(event) {
+    event.preventDefault();
+    localStorage.clear();
+    showHiScores();
+});
 
-}
+newHiscoreForm.addEventListener("submit", function (event) {
+    event.preventDefault();
 
+    var submittedName = newHiscoreForm.children[0].children[1].value;
+
+    if (submittedName === "") {
+        alert("Please enter a name or initials");
+        return;
+    }
+
+    var newScore = {
+        name: submittedName,
+        score: -10
+    };
+
+    var scoresListStr = localStorage.getItem("hiscores");
+    if (!scoresListStr) {
+        var scores = [newScore];
+        localStorage.setItem("hiscores", JSON.stringify(scores));
+    } else {
+        var scores = JSON.parse(scoresListStr);
+        var i = 0;
+
+        while (i < scores.length && newScore.score < scores[i].score) {
+            i++;
+        }
+
+        scores.splice(i, 0, newScore);
+        localStorage.setItem("hiscores", JSON.stringify(scores));
+    }
+
+    showHiScores();
+});
+
+answerListEl.addEventListener("click", function (event) {
+    if (event.target.textContent === thisQuestion.answer) {
+        // show "correct"
+        correct = true;
+    } else {
+        // show "incorrect"
+        correct = false;
+    }
+});

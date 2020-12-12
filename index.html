@@ -19,7 +19,7 @@
         </header>
 
         <main class="container mt-2">
-            <section id="home">
+            <section id="home" >
                 <p class="text-center">
                     Welcome to a simple multiple-choice web development quiz! 
                 </p>
@@ -38,7 +38,7 @@
             </section>
 
             <section id="end-screen" style="display: none">
-                <div class="container">
+                <div class="container justify-content-center">
                     <h2>Quiz complete</h2>
                     <h3>Your score is <span id="present-score"></span></h3>
                     <form class="form-group justify-content-center" id="new-hiscore-form">
@@ -51,8 +51,13 @@
                 </div>
             </section>
 
-            <section id="hiscore-view">
-                <ol id="hiscore-list"></ol>
+            <section id="hiscore-view" style="display: none;">
+                <div class="container">
+                    <h2>High Scores</h2>
+                    <p id="no-scores"></p>
+                    <ol id="hiscore-list"></ol>
+                    <button class="btn" id="clear-scores-btn">Clear Scores</button>
+                </div>
             </section>
         </main>
 
