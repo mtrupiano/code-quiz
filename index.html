@@ -22,10 +22,10 @@
             <p class="text-center">
                 Welcome to a simple multiple-choice web development quiz! 
             </p>
-            <div class="row justify-content-center" id="start-btn">
+            <div class="row" id="start-btn">
                 <button class="btn btn-lg mb-2">Start!</button>
             </div>
-            <div class="row justify-content-center hiscore-btn">
+            <div class="row" id="hiscore-btn">
                 <button class="btn">View High Scores</button>
             </div>
         </main>
@@ -33,9 +33,13 @@
         <main class="container" id="question-form">
             <h2 id="prompt-header"></h2>
 
-            <ul class="list-group" id="answer-list">
-            </ul>
+            <ul class="list-group" id="answer-list"></ul>
+            <p id="timer"></p>
+            
+        </main>
 
+        <main class="container" id="view-hiscores">
+            <ol id="hiscore-list"></ol>
         </main>
 
         

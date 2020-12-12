@@ -22,12 +22,15 @@ var questions = [
     }
 ];
 
+var homeContainer = document
+
 var startButton = document.querySelector("#start-btn");
 var hiscoreButton = document.querySelector("#hiscore-btn");
 
 var promptHeader = document.querySelector("#prompt-header");
 var answerList = document.querySelector("#answer-list");
 
+var timerElement = document.querySelector("#timer");
 
 function showQuestion() {
     // clear the question header and list
@@ -68,6 +71,21 @@ function showQuestion() {
 }
 
 function runQuiz() {
+    startButton.style.display = "none";
+    hiscoreButton.style.justifyContent = "right";
+    showQuestion();
+    var secondsLeft = 120;
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        timerElement.textContent = `${secondsLeft} seconds remaining`;
+
+        if (secondsLeft === 0) {
+            clearInterval(timerInterval);
+            
+        }
+
+    }, 1000);
+
 
 }
 
@@ -76,3 +94,11 @@ startButton.addEventListener("click", function(event) {
     runQuiz();
 });
 
+hiscoreButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    showHiScores();
+});
+
+function showHiScores() {
+
+}

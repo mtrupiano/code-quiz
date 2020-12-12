@@ -1,5 +1,10 @@
 
 
+.row {
+    display: flex;
+    justify-content: center;
+}
+
 .btn {
     background-color: blue;
     color: rgb(231, 221, 221);
