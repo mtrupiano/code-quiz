@@ -28,6 +28,37 @@ var promptHeaderEl  = document.querySelector("#prompt-header");
 var answerListEl    = document.querySelector("#answer-list");
 var timerEl         = document.querySelector("#timer");
 
+var endScreenSection = document.querySelector("#end-screen");
+var homeScreenSection = document.querySelector("#home");
+
+var newHiscoreForm = document.querySelector("#new-hiscore-form");
+
+newHiscoreForm.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    var newScore = {
+        name: newHiscoreForm.children[0].children[1].value,
+        score: -10
+    };
+
+    var scoresListStr = localStorage.getItem("hiscores");
+    if (!scoresListStr) {
+        var scores = [newScore];
+        localStorage.setItem("hiscores", JSON.stringify(scores));
+    } else {
+        var scores = JSON.parse(scoresListStr);
+        var i = 0;
+
+        while (i < scores.length && newScore.score < scores[i].score) {
+            i++;
+        }
+
+        scores.splice(i, 0, newScore);
+        localStorage.setItem("hiscores", JSON.stringify(scores));
+    }
+
+});
+
 var usedQuestions = [];
 var thisQuestion;
 
@@ -87,25 +118,32 @@ function showQuestion() {
 }
 
 function runQuiz() {
-    startButton.style.display = "none";
+    homeScreenSection.style.display = "none";
     hiscoreButton.style.justifyContent = "right";
 
-    
-    var secondsLeft = 120;
-    var timerInterval = setInterval(function () {
-        secondsLeft--;
-        timerEl.textContent = `${secondsLeft} seconds remaining`;
+    // Start quiz timer
+    // var secondsLeft = 120;
+    // var timerInterval = setInterval(function () {
+    //     secondsLeft--;
+    //     timerEl.textContent = `${secondsLeft} seconds remaining`;
 
-        if (secondsLeft === 0) {
-            clearInterval(timerInterval);
+    //     if (secondsLeft === 0) {
+    //         clearInterval(timerInterval);
             
-        }
+    //     }
 
-    }, 1000);
+    // }, 1000);
 
-    for (var i = 0; i < questions.length; i++) {
-        showQuestion();
-    }
+
+    endQuiz();
+}
+
+function endQuiz() {
+    endScreenSection.style.display = "inline";
+    // show score
+    // present form for initial enter
+
+    
 
 }
 
@@ -122,3 +160,4 @@ hiscoreButton.addEventListener("click", function (event) {
 function showHiScores() {
 
 }
+

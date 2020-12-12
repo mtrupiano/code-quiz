@@ -20,23 +20,35 @@
 
         <main class="container mt-2">
             <section id="home">
-
                 <p class="text-center">
                     Welcome to a simple multiple-choice web development quiz! 
                 </p>
-                <div class="row" id="start-btn">
-                    <button class="btn btn-lg mb-2">Start!</button>
+                <div class="row">
+                    <button class="btn btn-lg mb-2" id="start-btn">Start!</button>
                 </div>
-                <div class="row" id="hiscore-btn">
-                    <button class="btn">View High Scores</button>
+                <div class="row">
+                    <button class="btn" id="hiscore-btn">View High Scores</button>
                 </div>
             </section>
 
             <section id="question-form">
                 <h2 id="prompt-header"></h2>
-                
                 <ul class="list-group" id="answer-list"></ul>
                 <p id="timer"></p>
+            </section>
+
+            <section id="end-screen" style="display: none">
+                <div class="container">
+                    <h2>Quiz complete</h2>
+                    <h3>Your score is <span id="present-score"></span></h3>
+                    <form class="form-group justify-content-center" id="new-hiscore-form">
+                        <div class="form-inline">
+                            <label class="mr-3" for="inputInitials">Enter your initials:</label>
+                            <input class="form-control" type="text" class="mr-3">
+                            <button id="initial-submit-btn" class="btn" type="submit">Submit</button>
+                        </div>
+                    </form>
+                </div>
             </section>
 
             <section id="hiscore-view">
