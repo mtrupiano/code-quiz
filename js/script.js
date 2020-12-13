@@ -78,6 +78,17 @@ function showQuestion() {
     return correct;
 }
 
+function hideAllViews() {
+    endScreenSection.style.display = "none";
+    homeScreenSection.style.display = "none";
+    hiscoreSection.style.display = "none";
+}
+
+function renderHomeView() {
+    hideAllViews();
+    homeScreenSection.style.display = "inline";
+}
+
 function runQuiz() {
     homeScreenSection.style.display = "none";
     hiscoreButton.style.justifyContent = "right";
@@ -130,28 +141,39 @@ function showHiScores() {
     }
 }
 
+// Start button on home view
 startButton.addEventListener("click", function(event) {
     event.preventDefault();
     runQuiz();
 });
 
+// View High Scores button on home view
 hiscoreButton.addEventListener("click", function (event) {
     event.preventDefault();
+    hideAllViews();
     showHiScores();
 });
 
-// Clear list of scores from local storage
+// Clear High Scores button on high score view
 document.querySelector("#clear-scores-btn").addEventListener("click", function(event) {
     event.preventDefault();
     localStorage.clear();
     showHiScores();
 });
 
+// Go Back button on high score view
+document.querySelector("#go-back-btn").addEventListener("click", function(event) {
+    event.preventDefault();
+    renderHomeView();
+});
+
+// Score submission form on end quiz view
 newHiscoreForm.addEventListener("submit", function (event) {
     event.preventDefault();
+    hideAllViews();
 
     var submittedName = newHiscoreForm.children[0].children[1].value;
-
+    newHiscoreForm.children[0].children[1].value = "";
     if (submittedName === "") {
         alert("Please enter a name or initials");
         return;
@@ -180,6 +202,7 @@ newHiscoreForm.addEventListener("submit", function (event) {
 
     showHiScores();
 });
+
 
 answerListEl.addEventListener("click", function (event) {
     if (event.target.textContent === thisQuestion.answer) {
