@@ -90,8 +90,7 @@ function renderHomeView() {
 }
 
 function runQuiz() {
-    homeScreenSection.style.display = "none";
-    hiscoreButton.style.justifyContent = "right";
+    hideAllViews();
 
     // Start quiz timer
     // var secondsLeft = 120;
@@ -106,7 +105,7 @@ function runQuiz() {
 
     // }, 1000);
 
-
+    // showQuestion();
     endQuiz();
 }
 
@@ -170,14 +169,14 @@ document.querySelector("#go-back-btn").addEventListener("click", function(event)
 // Score submission form on end quiz view
 newHiscoreForm.addEventListener("submit", function (event) {
     event.preventDefault();
-    hideAllViews();
-
+    
     var submittedName = newHiscoreForm.children[0].children[1].value;
     newHiscoreForm.children[0].children[1].value = "";
     if (submittedName === "") {
         alert("Please enter a name or initials");
         return;
     }
+    hideAllViews();
 
     var newScore = {
         name: submittedName,
