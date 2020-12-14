@@ -110,7 +110,12 @@ function runQuiz() {
 
     }, 1000);
 
+    showQuestionFormSection();
     showQuestion();
+}
+
+function showQuestionFormSection() {
+    questionFormSection.style.display = "inline";
 }
 
 function showEndScreen() {
@@ -228,7 +233,7 @@ answerListEl.addEventListener("click", function (event) {
     } else {
         // show "incorrect"
         secondsLeft -= 10;
-        if (sessionProgress < questionCount) {
+        if (sessionProgress < questionCount && secondsLeft > 0) {
             showQuestion();
         } else {
             showEndScreen();
