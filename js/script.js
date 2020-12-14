@@ -17,9 +17,10 @@ var questions = [
         wrongs: ["for (var element in arr) {}", "for (element : arr) {}", "For Each element In arr ... Next"],
         code: true
     }// , {
-    //     prompt: "",
-    //     answer: "",
-    //     wrongs: ["", "", ""],
+    //     prompt: "Which of the following is the proper method to display something on the console in JavaScript?",
+    //     answer: "console.log()",
+    //     wrongs: ["System.out.println()", "cout << ", "console.print()"],
+    //     code: true,
     // }, {
     //     prompt: "",
     //     answer: "",
