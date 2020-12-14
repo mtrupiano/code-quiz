@@ -4,7 +4,7 @@ var questions = [
         answer: "JavaScript Object Notation",
         wrongs: ["JavaScript Order Naming", "JavaScript Order Notation", "JavaScript Object Naming"],
     }, {
-        prompt: "What is the value of 'x' after the following block of code is executed? <br><section class='code-prompt'><p>var x = 10;<br><br>function subtractor(y, x) {<br><span class='tabbed-code'>return x - y;</span><br>}<br><br>x = adder(x, 15);</section>",
+        prompt: "What is the value of 'x' after the following block of code is executed? <br><section class='code-prompt'><p>var x = 10;<br><br>function subtractor(y, x) {<br><span class='tabbed-code'>return x - y;</span><br>}<br><br>x = subtractor(x, 15);</section>",
         answer: "5",
         wrongs: ["-5", "-25", "25"],
     }, {
@@ -16,16 +16,16 @@ var questions = [
         answer: "arr.forEach(function(element) {});",
         wrongs: ["for (var element in arr) {}", "for (element : arr) {}", "For Each element In arr ... Next"],
         code: true
-    }// , {
-    //     prompt: "Which of the following is the proper method to display something on the console in JavaScript?",
-    //     answer: "console.log()",
-    //     wrongs: ["System.out.println()", "cout << ", "console.print()"],
-    //     code: true,
-    // }, {
-    //     prompt: "",
-    //     answer: "",
-    //     wrongs: ["", "", ""],
-    // }, {
+    }, {
+        prompt: "Which of the following is the proper method to display something on the console in JavaScript?",
+        answer: "console.log()",
+        wrongs: ["System.out.println()", "cout << ", "console.print()"],
+        code: true,
+    }, {
+        prompt: "What is the value of x after the following block of code is executed? <br><section class='code-prompt'><p>var x = 3;<br>var y = 7;<br><br>function doISwap(v, w) {<br><span class='tabbed-code'>v = w;</span><br>}<br><br>doISwap(x, y);",
+        answer: "3",
+        wrongs: ["7"],
+    }, // {
     //     prompt: "",
     //     answer: "",
     //     wrongs: ["", "", ""],
@@ -65,7 +65,7 @@ var usedQuestions = [];
 var thisQuestion;
 
 var quizLength = 60 * 5;    // Quiz length (in seconds) (default: 5 minutes)
-var questionCount = 4;      // Maximum number of questions in the quiz
+var questionCount = 6;      // Maximum number of questions in the quiz
 var sessionProgress = 0;    // Counter for progress through a quiz session
 
 var secondsLeft = quizLength; 
@@ -122,10 +122,15 @@ function showQuestion() {
 }
 
 function hideAllViews() {
+
     endScreenSection.style.display      = "none";
     homeScreenSection.style.display     = "none";
     hiscoreSection.style.display        = "none";
     questionFormSection.style.display   = "none";
+
+    // clear out question form
+    promptHeaderEl.innerHTML = "";
+    answerListEl.innerHTML = "";
 }
 
 function renderHomeView() {
@@ -174,7 +179,7 @@ function showEndScreen() {
     hideAllViews();
     endScreenSection.style.display = "inline";
     secondsLeft = 0;
-    document.querySelector("#present-score").innerHTML = sessionScore;
+    document.querySelector("#present-score").innerHTML = `${sessionScore} / ${questionCount}`;
     // show score
     // present form for initial enter
 
