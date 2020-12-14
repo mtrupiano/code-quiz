@@ -4,9 +4,9 @@ var questions = [
         answer: "JavaScript Object Notation",
         wrongs: ["JavaScript Order Naming", "JavaScript Order Notation", "JavaScript Object Naming"],
     }, {
-        prompt: "What is the value of 'x' after the following block of code is executed? <br><p><code>var x = 10;<br><br>function adder(x, y) {<br><span class='tabbed-code'>return x + y;</span><br>}<br><br>x = adder(x, 10);<code></p>",
-        answer: "20",
-        wrongs: ["10", "30", "11"],
+        prompt: "What is the value of 'x' after the following block of code is executed? <br><section class='code'><p>var x = 10;<br><br>function subtractor(y, x) {<br><span class='tabbed-code'>return x - y;</span><br>}<br><br>x = adder(x, 15);</section>",
+        answer: "5",
+        wrongs: ["-5", "-25", "25"],
     }, {
         prompt: "Unlike some other programming languages, JavaScript does not require you to specify the data type of variables when they're created. Because of this, JavaScript is reffered to as a ________ language.",
         answer: "Weakly-typed",

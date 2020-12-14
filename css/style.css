@@ -8,17 +8,9 @@ main {
     background-color: #FFD152;
     color: #343233;
     border-radius: 10px;
-    height: 60vh;
-}
-
-code {
-    font-family: 'Inconsolata', monospace;
-    border: solid;
-    border-color:black;
-    line-height: 100%;
-    background-color: #343233;
-    color: white;
-    font-size: 16pt;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 60vh;
 }
 
 li button {
@@ -46,4 +38,16 @@ li button {
 .btn:hover {
     color: #FFD152;
     background-color: #343233;
+}
+
+.code {
+    font-family: 'Inconsolata', monospace;
+    line-height: 100%;
+    background-color: #343233;
+    color: white;
+    font-size: 16pt;
+    padding: 10px 10px;
+    margin: 20px;
+    border-radius: 2px;
+    max-width: 50%;
 }
