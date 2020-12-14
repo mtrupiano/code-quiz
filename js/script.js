@@ -90,9 +90,12 @@ function showQuestion() {
     }
 
     var usedChoices = [];
-    // create a button element
-    // create list item element
-    // add button as child to list item element such that the choices are arranged randomly
+    
+    // for each possible answer choice: 
+    //      - create a button element
+    //      - create list item element
+    //      - add button as child to list item element
+    //      - add list item element to answer list such that choices are arranged randomly
     for (var i = 0; i < choices.length; i++) {
         var newBtnEl = document.createElement("button");
         if (thisQuestion.code) {
