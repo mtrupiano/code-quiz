@@ -148,9 +148,12 @@ function showQuestionFormSection() {
 }
 
 function showEndScreen() {
-    secondsLeft = 0;
+    if (secondsLeft <= 0) {
+        document.querySelector("#times-up").innerHTML = "Time's up! ";
+    }
     hideAllViews();
     endScreenSection.style.display = "inline";
+    secondsLeft = 0;
     document.querySelector("#present-score").innerHTML = sessionScore;
     // show score
     // present form for initial enter
@@ -252,13 +255,14 @@ answerListEl.addEventListener("click", function (event) {
     event.preventDefault();
     
     var targetTag = event.target.tagName.toLowerCase();
-    console.log(targetTag);
+
     if (targetTag !== "button") {
-        console.log ("I'm out");
         return;
     }
+
     sessionProgress++;
-    if (event.target.tagName.toLowerCase() === 'button' && event.target.textContent === thisQuestion.answer) {
+
+    if (targetTag === 'button' && event.target.textContent === thisQuestion.answer) {
         // show "correct"
         sessionScore++;
         if (sessionProgress < questionCount && secondsLeft > 0) {

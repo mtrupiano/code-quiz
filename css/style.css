@@ -21,6 +21,10 @@ code {
     font-size: 16pt;
 }
 
+li button {
+    min-width: 100px;
+}
+
 .tabbed-code {
     margin-left: 40px;
 }
