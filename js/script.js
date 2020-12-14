@@ -62,6 +62,10 @@ var newHiscoreForm = document.querySelector("#new-hiscore-form");
 var usedQuestions = [];
 var thisQuestion;
 
+var secondsLeft = 120; // Quiz length (in seconds)
+var questionCount = 4; // Maximum number of questions in the quiz
+var sessionProgress = 0; // Counter for progress through a quiz session
+
 function showQuestion() {
     // clear the question header and list
     promptHeaderEl.innerHTML = "";
@@ -245,11 +249,6 @@ newHiscoreForm.addEventListener("submit", function (event) {
 
     showHiScores();
 });
-
-
-var secondsLeft = 120; // Quiz length (in seconds)
-var questionCount = 4; // Maximum number of questions in the quiz
-var sessionProgress = 0; // Counter for progress through a quiz session
 
 answerListEl.addEventListener("click", function (event) {
     event.preventDefault();
