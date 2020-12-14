@@ -92,6 +92,8 @@ function renderHomeView() {
 
 function runQuiz() {
     hideAllViews();
+    usedQuestions.length = 0; // clear list of used questions
+    showQuestionFormSection();
 
     // Reset session progress, session score, and timer
     sessionScore = 0;
@@ -106,11 +108,10 @@ function runQuiz() {
         if (secondsLeft <= 0 || sessionProgress === questionCount) {
             clearInterval(timerInterval);
             showEndScreen();
-        }
+        } 
 
     }, 1000);
 
-    showQuestionFormSection();
     showQuestion();
 }
 
@@ -119,6 +120,7 @@ function showQuestionFormSection() {
 }
 
 function showEndScreen() {
+    secondsLeft = 0;
     hideAllViews();
     endScreenSection.style.display = "inline";
     document.querySelector("#present-score").innerHTML = sessionScore;
