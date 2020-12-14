@@ -62,9 +62,11 @@ var newHiscoreForm = document.querySelector("#new-hiscore-form");
 var usedQuestions = [];
 var thisQuestion;
 
-var secondsLeft = 120; // Quiz length (in seconds)
-var questionCount = 4; // Maximum number of questions in the quiz
-var sessionProgress = 0; // Counter for progress through a quiz session
+var quizLength = 60 * 5;    // Quiz length (in seconds) (default: 5 minutes)
+var questionCount = 4;      // Maximum number of questions in the quiz
+var sessionProgress = 0;    // Counter for progress through a quiz session
+
+var secondsLeft = quizLength; 
 
 function showQuestion() {
     // clear the question header and list
@@ -130,12 +132,13 @@ function runQuiz() {
     // Reset session progress, session score, and timer
     sessionScore = 0;
     sessionProgress = 0;
-    secondsLeft = 120;
+    secondsLeft = quizLength;
 
     // Start quiz timer
     var timerInterval = setInterval(function () {
         secondsLeft--;
-        timerEl.textContent = `${secondsLeft} seconds remaining`;
+        var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft%60) : ("0" + secondsLeft%60);
+        timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
 
         if (secondsLeft <= 0 || sessionProgress === questionCount) {
             clearInterval(timerInterval);
