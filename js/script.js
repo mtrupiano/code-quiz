@@ -12,7 +12,7 @@ var questions = [
         answer: "Weakly-typed",
         wrongs: ["Strongly-typed", "Parametric", "Functional"],
     }, {
-        prompt: "Which of the following shows the proper JavaScript syntax for a for-each loop over an array name 'arr'?",
+        prompt: "Which of the following shows the proper JavaScript syntax for a for-each loop over an array named 'arr'?",
         answer: "arr.forEach(function(element) {});",
         wrongs: ["for (var element in arr) {}", "for (element : arr) {}", "For Each element In arr ... Next"],
         code: true
@@ -136,12 +136,14 @@ function renderHomeView() {
 function runQuiz() {
     hideAllViews();
     usedQuestions.length = 0; // clear list of used questions
-    showQuestionFormSection();
-
+    
     // Reset session progress, session score, and timer
     sessionScore = 0;
     sessionProgress = 0;
     secondsLeft = quizLength;
+
+    var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft % 60) : ("0" + secondsLeft % 60);
+    timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
 
     // Start quiz timer
     var timerInterval = setInterval(function () {
@@ -155,6 +157,8 @@ function runQuiz() {
         } 
 
     }, 1000);
+
+    showQuestionFormSection();
 
     showQuestion();
 }
