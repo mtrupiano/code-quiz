@@ -11,6 +11,21 @@ main {
     height: 60vh;
 }
 
+code {
+    font-family: 'Inconsolata', monospace;
+    border: solid;
+    border-color:black;
+    line-height: 100%;
+    background-color: #343233;
+    color: white;
+    font-size: 16pt;
+}
+
+.tabbed-code {
+    margin-left: 40px;
+}
+
+
 .row {
     display: flex;
     justify-content: center;

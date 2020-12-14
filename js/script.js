@@ -1,22 +1,50 @@
 var questions = [
     {
-        prompt: "Hello, how are you?",
-        answer: "Fine, thanks.",
-        wrongs: ["wrong1", "wrong2", "wrong3"],
+        prompt: "JSON stands for: ",
+        answer: "JavaScript Object Notation",
+        wrongs: ["JavaScript Order Naming", "JavaScript Order Notation", "JavaScript Object Naming"],
     }, {
-        prompt: "How's the weather?",
-        answer: "It's raining",
-        wrongs: ["wrong1", "wrong2", "wrong3"],
+        prompt: "What is the value of 'x' after the following block of code is executed? <br><p><code>var x = 10;<br><br>function adder(x, y) {<br><span class='tabbed-code'>return x + y;</span><br>}<br><br>x = adder(x, 10);<code></p>",
+        answer: "20",
+        wrongs: ["10", "30", "11"],
     }, {
-        prompt: "Unlike some other programming languages, JavaScript does not require you to specify the data type of variables. Because of this, JavaScript is reffered to as a ________ language.",
+        prompt: "Unlike some other programming languages, JavaScript does not require you to specify the data type of variables when they're created. Because of this, JavaScript is reffered to as a ________ language.",
         answer: "Weakly-typed",
         wrongs: ["Strongly-typed", "Parametric", "Functional"],
     }, {
         prompt: "Hello, I love you, won't you tell me your name?",
         answer: "Fine, thanks.",
         wrongs: ["wrong1", "wrong2", "wrong3"],
-    }
-];
+    }// , {
+    //     prompt: "",
+    //     answer: "",
+    //     wrongs: ["", "", ""],
+    // }, {
+    //     prompt: "",
+    //     answer: "",
+    //     wrongs: ["", "", ""],
+    // }, {
+    //     prompt: "",
+    //     answer: "",
+    //     wrongs: ["", "", ""],
+    // }, {
+    //     prompt: "",
+    //     answer: "",
+    //     wrongs: ["", "", ""],
+    // }, {
+    //     prompt: "",
+    //     answer: "",
+    //     wrongs: ["", "", ""],
+    // }, {
+    //     prompt: "",
+    //     answer: "",
+    //     wrongs: ["", "", ""],
+    // }, {
+    //     prompt: "",
+    //     answer: "",
+    //     wrongs: ["", "", ""],
+    // }
+]; 
 
 var startButton     = document.querySelector("#start-btn");
 var hiscoreButton   = document.querySelector("#hiscore-btn");
@@ -47,7 +75,7 @@ function showQuestion() {
     usedQuestions.push(qIdx);
     thisQuestion = questions[qIdx];
 
-    promptHeaderEl.textContent = thisQuestion.prompt;
+    promptHeaderEl.innerHTML = thisQuestion.prompt;
 
     var choices = [thisQuestion.answer];
     for (var i = 0; i < thisQuestion.wrongs.length; i++) {
@@ -104,7 +132,7 @@ function runQuiz() {
     var timerInterval = setInterval(function () {
         secondsLeft--;
         timerEl.textContent = `${secondsLeft} seconds remaining`;
-        console.log(secondsLeft);
+
         if (secondsLeft <= 0 || sessionProgress === questionCount) {
             clearInterval(timerInterval);
             showEndScreen();
@@ -217,14 +245,20 @@ newHiscoreForm.addEventListener("submit", function (event) {
 
 
 var secondsLeft = 120; // Quiz length (in seconds)
-var questionCount = 3; // Maximum number of questions in the quiz
+var questionCount = 4; // Maximum number of questions in the quiz
 var sessionProgress = 0; // Counter for progress through a quiz session
 
 answerListEl.addEventListener("click", function (event) {
     event.preventDefault();
+    
+    var targetTag = event.target.tagName.toLowerCase();
+    console.log(targetTag);
+    if (targetTag !== "button") {
+        console.log ("I'm out");
+        return;
+    }
     sessionProgress++;
-
-    if (event.target.textContent === thisQuestion.answer) {
+    if (event.target.tagName.toLowerCase() === 'button' && event.target.textContent === thisQuestion.answer) {
         // show "correct"
         sessionScore++;
         if (sessionProgress < questionCount && secondsLeft > 0) {
