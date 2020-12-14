@@ -27,6 +27,7 @@ var timerEl         = document.querySelector("#timer");
 var endScreenSection = document.querySelector("#end-screen");
 var homeScreenSection = document.querySelector("#home");
 var hiscoreSection = document.querySelector("#hiscore-view");
+var questionFormSection = document.querySelector("#question-form");
 
 var newHiscoreForm = document.querySelector("#new-hiscore-form");
 
@@ -64,7 +65,7 @@ function showQuestion() {
         var idx;
         do {
             idx = Math.floor(Math.random() * choices.length)
-        } while (used.includes(idx));
+        } while (usedChoices.includes(idx));
 
         usedChoices.push(idx);
         newBtnEl.innerHTML = choices[idx];
@@ -75,13 +76,13 @@ function showQuestion() {
         answerListEl.appendChild(liEl);
     }
 
-    return correct;
 }
 
 function hideAllViews() {
     endScreenSection.style.display = "none";
     homeScreenSection.style.display = "none";
     hiscoreSection.style.display = "none";
+    questionFormSection.style.display = "none";
 }
 
 function renderHomeView() {
@@ -92,25 +93,30 @@ function renderHomeView() {
 function runQuiz() {
     hideAllViews();
 
+    // Reset session progress, session score, and timer
+    sessionScore = 0;
+    sessionProgress = 0;
+    secondsLeft = 120;
+
     // Start quiz timer
-    // var secondsLeft = 120;
-    // var timerInterval = setInterval(function () {
-    //     secondsLeft--;
-    //     timerEl.textContent = `${secondsLeft} seconds remaining`;
+    var timerInterval = setInterval(function () {
+        secondsLeft--;
+        timerEl.textContent = `${secondsLeft} seconds remaining`;
+        console.log(secondsLeft);
+        if (secondsLeft <= 0 || sessionProgress === questionCount) {
+            clearInterval(timerInterval);
+            showEndScreen();
+        }
 
-    //     if (secondsLeft === 0) {
-    //         clearInterval(timerInterval);
-            
-    //     }
+    }, 1000);
 
-    // }, 1000);
-
-    // showQuestion();
-    endQuiz();
+    showQuestion();
 }
 
-function endQuiz() {
+function showEndScreen() {
+    hideAllViews();
     endScreenSection.style.display = "inline";
+    document.querySelector("#present-score").innerHTML = sessionScore;
     // show score
     // present form for initial enter
 
@@ -180,7 +186,7 @@ newHiscoreForm.addEventListener("submit", function (event) {
 
     var newScore = {
         name: submittedName,
-        score: -10
+        score: sessionScore
     };
 
     var scoresListStr = localStorage.getItem("hiscores");
@@ -203,12 +209,29 @@ newHiscoreForm.addEventListener("submit", function (event) {
 });
 
 
+var secondsLeft = 120; // Quiz length (in seconds)
+var questionCount = 3; // Maximum number of questions in the quiz
+var sessionProgress = 0; // Counter for progress through a quiz session
+
 answerListEl.addEventListener("click", function (event) {
+    sessionProgress++;
+
     if (event.target.textContent === thisQuestion.answer) {
         // show "correct"
-        correct = true;
+        sessionScore++;
+        if (sessionProgress < questionCount && secondsLeft > 0) {
+            showQuestion();
+        } else if (sessionProgress === questionCount) {
+            showEndScreen();
+        }
+
     } else {
         // show "incorrect"
-        correct = false;
+        secondsLeft -= 10;
+        if (sessionProgress < questionCount) {
+            showQuestion();
+        } else {
+            showEndScreen();
+        }
     }
 });
