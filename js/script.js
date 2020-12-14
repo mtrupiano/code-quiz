@@ -219,6 +219,7 @@ var questionCount = 3; // Maximum number of questions in the quiz
 var sessionProgress = 0; // Counter for progress through a quiz session
 
 answerListEl.addEventListener("click", function (event) {
+    event.preventDefault();
     sessionProgress++;
 
     if (event.target.textContent === thisQuestion.answer) {
@@ -235,7 +236,7 @@ answerListEl.addEventListener("click", function (event) {
         secondsLeft -= 10;
         if (sessionProgress < questionCount && secondsLeft > 0) {
             showQuestion();
-        } else {
+        } else if (sessionProgress === questionCount) {
             showEndScreen();
         }
     }
