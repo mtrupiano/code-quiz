@@ -12,7 +12,7 @@ var questions = [
         answer: "Weakly-typed",
         wrongs: ["Strongly-typed", "Parametric", "Functional"],
     }, {
-        prompt: "Which of the following shows the proper JavaScript syntax for a for-each loop on an array name 'arr'?",
+        prompt: "Which of the following shows the proper JavaScript syntax for a for-each loop over an array name 'arr'?",
         answer: "arr.forEach(function(element) {});",
         wrongs: ["for (var element in arr) {}", "for (element : arr) {}", "For Each element In arr ... Next"],
         code: true
@@ -90,12 +90,12 @@ function showQuestion() {
     }
 
     var usedChoices = [];
-    
+
     // for each possible answer choice: 
     //      - create a button element
     //      - create list item element
     //      - add button as child to list item element
-    //      - add list item element to answer list such that choices are arranged randomly
+    //      - add list item element as child to answer list such that choices are arranged randomly
     for (var i = 0; i < choices.length; i++) {
         var newBtnEl = document.createElement("button");
         if (thisQuestion.code) {

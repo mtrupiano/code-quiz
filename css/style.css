@@ -18,7 +18,18 @@ main {
 }
 
 li button {
-    min-width: 100px;
+    min-width: 150px;
+    margin-left: 10px;
+}
+
+.list-group {
+    list-style: decimal inside;
+    width: 75%;
+}
+
+.list-group-item {
+    display: list-item;
+    background-color: #FFD152;
 }
 
 .tabbed-code {
@@ -49,7 +60,7 @@ li button {
     line-height: 100%;
     background-color: #343233;
     color: white;
-    font-size: 16pt;
+    font-size: 15pt;
     padding: 10px 10px;
     margin: 20px;
     border-radius: 2px;
@@ -63,8 +74,12 @@ li button {
     font-size: 14pt;
 }
 
-@media only screen and (max-width: 778px) {
+@media only screen and (max-width: 767.98px) {
     .code-prompt {
         max-width: 90%;
+    }
+
+    .list-group {
+        width: 100%;
     }
 }
