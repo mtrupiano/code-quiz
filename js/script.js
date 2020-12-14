@@ -4,7 +4,7 @@ var questions = [
         answer: "JavaScript Object Notation",
         wrongs: ["JavaScript Order Naming", "JavaScript Order Notation", "JavaScript Object Naming"],
     }, {
-        prompt: "What is the value of 'x' after the following block of code is executed? <br><section class='code'><p>var x = 10;<br><br>function subtractor(y, x) {<br><span class='tabbed-code'>return x - y;</span><br>}<br><br>x = adder(x, 15);</section>",
+        prompt: "What is the value of 'x' after the following block of code is executed? <br><section class='code-prompt'><p>var x = 10;<br><br>function subtractor(y, x) {<br><span class='tabbed-code'>return x - y;</span><br>}<br><br>x = adder(x, 15);</section>",
         answer: "5",
         wrongs: ["-5", "-25", "25"],
     }, {
@@ -12,9 +12,10 @@ var questions = [
         answer: "Weakly-typed",
         wrongs: ["Strongly-typed", "Parametric", "Functional"],
     }, {
-        prompt: "Hello, I love you, won't you tell me your name?",
-        answer: "Fine, thanks.",
-        wrongs: ["wrong1", "wrong2", "wrong3"],
+        prompt: "Which of the following shows the proper JavaScript syntax for a for-each loop on an array name 'arr'?",
+        answer: "arr.forEach(function(element) {});",
+        wrongs: ["for (var element in arr) {}", "for (element : arr) {}", "For Each element In arr ... Next"],
+        code: true
     }// , {
     //     prompt: "",
     //     answer: "",
@@ -89,12 +90,16 @@ function showQuestion() {
     }
 
     var usedChoices = [];
+    // create a button element
+    // create list item element
+    // add button as child to list item element such that the choices are arranged randomly
     for (var i = 0; i < choices.length; i++) {
-        // create a button element
-        // create list item element
-        // add button as child to list item element such that the choices are arranged randomly
         var newBtnEl = document.createElement("button");
-        newBtnEl.setAttribute("class", "btn");
+        if (thisQuestion.code) {
+            newBtnEl.setAttribute("class", "btn code-answer");
+        } else {
+            newBtnEl.setAttribute("class", "btn");
+        }
         
         var idx;
         do {
@@ -105,7 +110,7 @@ function showQuestion() {
         newBtnEl.innerHTML = choices[idx];
 
         var liEl = document.createElement("li");
-        liEl.setAttribute("class", "list-group-item");
+        liEl.setAttribute("class", "list-group-item"); 
         liEl.appendChild(newBtnEl);
         answerListEl.appendChild(liEl);
     }
@@ -113,10 +118,10 @@ function showQuestion() {
 }
 
 function hideAllViews() {
-    endScreenSection.style.display = "none";
-    homeScreenSection.style.display = "none";
-    hiscoreSection.style.display = "none";
-    questionFormSection.style.display = "none";
+    endScreenSection.style.display      = "none";
+    homeScreenSection.style.display     = "none";
+    hiscoreSection.style.display        = "none";
+    questionFormSection.style.display   = "none";
 }
 
 function renderHomeView() {
@@ -257,7 +262,6 @@ answerListEl.addEventListener("click", function (event) {
     event.preventDefault();
     
     var targetTag = event.target.tagName.toLowerCase();
-
     if (targetTag !== "button") {
         return;
     }

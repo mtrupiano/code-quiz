@@ -1,3 +1,7 @@
+html {
+    min-width: 360px;
+}
+
 
 body {
     background-color: #343233;
@@ -40,7 +44,7 @@ li button {
     background-color: #343233;
 }
 
-.code {
+.code-prompt {
     font-family: 'Inconsolata', monospace;
     line-height: 100%;
     background-color: #343233;
@@ -50,4 +54,17 @@ li button {
     margin: 20px;
     border-radius: 2px;
     max-width: 50%;
+}
+
+.code-answer {
+    font-family: 'Inconsolata', monospace;
+    line-height: 100%;
+    color: white;
+    font-size: 14pt;
+}
+
+@media only screen and (max-width: 778px) {
+    .code-prompt {
+        max-width: 90%;
+    }
 }
