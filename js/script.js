@@ -27,8 +27,8 @@ var questions = [
         wrongs: ["7"],
     }, {
         prompt: "What will be displayed in the console after the following block of code is executed?<br><section class='code-prompt'><p>var o = {<br><span class='tabbed-code'>name: 'Mark',</span><br><span class='tabbed-code'>age: 22,</span><br><span class='tabbed-code'>height: 67</span><br>};<br><br>console.log(`Type of 'o': ${typeof(o)} -- Type of 'o.age': ${typeof(o.age)}`);",
-        answer: "Type of o: object -- Type of o.age: number",
-        wrongs: ["Type of o: object -- Type of o.age: integer", "Type of o: array -- Type of o.age: number", "Type of o: string -- Type of o.age: integer"],
+        answer: "Type of 'o': object -- Type of 'o.age': number",
+        wrongs: ["Type of 'o': object -- Type of 'o.age': integer", "Type of 'o': array -- Type of 'o.age': number", "Type of 'o': string -- Type of 'o.age': integer"],
         formatAnswersAsCode: true,
     }//, {
     //     prompt: "",
