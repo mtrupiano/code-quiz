@@ -292,6 +292,7 @@ newHiscoreForm.addEventListener("submit", function (event) {
     showHiScores();
 });
 
+// Event listener for list of answer buttons
 answerListEl.addEventListener("click", function (event) {
     event.preventDefault();
     
@@ -299,9 +300,6 @@ answerListEl.addEventListener("click", function (event) {
         return;
     }
 
-    // console.log(sessionProgress);
-    console.log(event.target.innerHTML);
-    console.log(thisQuestion.answer)
     if (event.target.innerHTML === thisQuestion.answer) {
         // show "correct"
         sessionScore++;
@@ -310,7 +308,7 @@ answerListEl.addEventListener("click", function (event) {
         secondsLeft -= 10;
     }
 
-    if (sessionProgress <= questionCount && secondsLeft > 0) {
+    if (sessionProgress < questionCount && secondsLeft > 0) {
         showQuestion();
     } else if (sessionProgress === questionCount) {
         showEndScreen();
