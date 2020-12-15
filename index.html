@@ -37,7 +37,7 @@
                 <ol class="list-group" id="answer-list"></ol>
             </section>
 
-            <section id="end-screen" style="display: none">
+            <section id="end-screen" style="display: none;">
                 <div class="container justify-content-center">
                     <h2 class="text-center mb-5"><span id="times-up"></span> Quiz complete</h2>
                     <h3 class="text-center mb-5">Your score is <span id="present-score"></span></h3>
@@ -53,11 +53,22 @@
 
             <section id="hiscore-view" style="display: none;">
                 <div class="container">
-                    <h2>High Scores</h2>
-                    <p id="no-scores"></p>
-                    <ol id="hiscore-list"></ol>
-                    <button class="btn" id="clear-scores-btn">Clear Scores</button>
-                    <button class="btn" id="go-back-btn">Go Back</button>
+                    <div class="row">
+                        <h2>High Scores</h2>
+                    </div>
+                    <div class="row">
+                        <p id="no-scores" class="text-center"></p>
+                    </div>
+                    <div class="row">
+                        <table class="table table-sm">
+                            <thead></thead>
+                            <tbody id=hiscore-table-body></tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <button class="btn mr-2" id="clear-scores-btn">Clear Scores</button>
+                        <button class="btn" id="go-back-btn">Go Back</button>
+                    </div>
                 </div>
             </section>
         </main>

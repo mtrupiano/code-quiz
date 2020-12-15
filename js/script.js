@@ -132,6 +132,10 @@ function hideAllViews() {
     // clear out question form
     promptHeaderEl.innerHTML = "";
     answerListEl.innerHTML = "";
+
+    // clear out hiscore table
+    document.querySelector("thead").innerHTML = "";
+    document.querySelector("#hiscore-table-body").innerHTML = "";
 }
 
 function renderHomeView() {
@@ -190,8 +194,8 @@ function showEndScreen() {
 
 // Render list of high scores stored in localStorage
 function showHiScores() {
-    var scoresListEl = document.querySelector("#hiscore-list");
-    scoresListEl.innerHTML = "";
+    var scoresTable = document.querySelector("thead");
+    var scoresTableBody = document.querySelector("#hiscore-table-body");
 
     hiscoreSection.style.display = "inline";
 
@@ -202,12 +206,22 @@ function showHiScores() {
     }
     document.querySelector("#no-scores").innerHTML = "";
 
+    scoresTable.innerHTML = "<tr><th scope='col'>Name</th><th scope='col'>Score</th></tr>";
+
     var scoresList = JSON.parse(scoresListStr);
     for (var i = 0; i < scoresList.length; i++) {
-        var newLi = document.createElement("li");
-        newLi.innerHTML = `${scoresList[i].name} - ${scoresList[i].score}`;
-        scoresListEl.appendChild(newLi);
+
+        // Populate the hiscores table with new row and data element
+        var newTableRow = document.createElement("tr");
+        var newNameEntry = document.createElement("td");
+        var newScoreEntry = document.createElement("td");
+        newNameEntry.textContent = scoresList[i].name;
+        newScoreEntry.textContent = scoresList[i].score;
+        newTableRow.appendChild(newNameEntry);
+        newTableRow.appendChild(newScoreEntry);
+        scoresTable.appendChild(newTableRow);
     }
+
 }
 
 // Start button on home view
@@ -226,6 +240,8 @@ hiscoreButton.addEventListener("click", function (event) {
 // Clear High Scores button on high score view
 document.querySelector("#clear-scores-btn").addEventListener("click", function(event) {
     event.preventDefault();
+    document.querySelector("thead").innerHTML = "";
+    document.querySelector("#hiscore-table-body").innerHTML = "";
     localStorage.clear();
     showHiScores();
 });
