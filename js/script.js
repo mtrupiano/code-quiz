@@ -15,21 +15,22 @@ var questions = [
         prompt: "Which of the following shows the proper JavaScript syntax for a for-each loop over an array named 'arr'?",
         answer: "arr.forEach(function(element) {});",
         wrongs: ["for (var element in arr) {}", "for (element : arr) {}", "For Each element In arr ... Next"],
-        code: true
+        formatAnswersAsCode: true
     }, {
         prompt: "Which of the following is the proper method to display something on the console in JavaScript?",
         answer: "console.log()",
         wrongs: ["System.out.println()", "cout << ", "console.print()"],
-        code: true,
+        formatAnswersAsCode: true,
     }, {
         prompt: "What is the value of x after the following block of code is executed? <br><section class='code-prompt'><p>var x = 3;<br>var y = 7;<br><br>function doISwap(v, w) {<br><span class='tabbed-code'>v = w;</span><br>}<br><br>doISwap(x, y);",
         answer: "3",
         wrongs: ["7"],
-    }, // {
-    //     prompt: "",
-    //     answer: "",
-    //     wrongs: ["", "", ""],
-    // }, {
+    }, {
+        prompt: "What will be displayed in the console after the following block of code is executed?<br><section class='code-prompt'><p>var o = {<br><span class='tabbed-code'>name: 'Mark',</span><br><span class='tabbed-code'>age: 22,</span><br><span class='tabbed-code'>height: 67</span><br>};<br><br>console.log(`Type of 'o': ${typeof(o)} -- Type of 'o.age': ${typeof(o.age)}`);",
+        answer: "Type of o: object -- Type of o.age: number",
+        wrongs: ["Type of o: object -- Type of o.age: integer", "Type of o: array -- Type of o.age: number", "Type of o: string -- Type of o.age: integer"],
+        formatAnswersAsCode: true,
+    }//, {
     //     prompt: "",
     //     answer: "",
     //     wrongs: ["", "", ""],
@@ -65,7 +66,7 @@ var usedQuestions = [];
 var thisQuestion;
 
 var quizLength = 60 * 5;    // Quiz length (in seconds) (default: 5 minutes)
-var questionCount = 6;      // Maximum number of questions in the quiz
+var questionCount = questions.length;      // Maximum number of questions in the quiz
 var sessionProgress = 0;    // Counter for progress through a quiz session
 
 var secondsLeft = quizLength; 
@@ -99,7 +100,7 @@ function showQuestion() {
     //      - add list item element as child to answer list such that choices are arranged randomly
     for (var i = 0; i < choices.length; i++) {
         var newBtnEl = document.createElement("button");
-        if (thisQuestion.code) {
+        if (thisQuestion.formatAnswersAsCode) {
             newBtnEl.setAttribute("class", "btn code-answer");
         } else {
             newBtnEl.setAttribute("class", "btn");
