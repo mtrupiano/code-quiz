@@ -76,6 +76,7 @@ function showQuestion() {
     // clear the question header and list
     promptHeaderEl.innerHTML = "";
     answerListEl.innerHTML = ""; 
+    sessionProgress++;
 
     // Select a random question from the question pool
     var qIdx;
@@ -166,7 +167,7 @@ function runQuiz() {
         var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft%60) : ("0" + secondsLeft%60);
         timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
 
-        if (secondsLeft <= 0 || sessionProgress === questionCount) {
+        if (secondsLeft <= 0) {
             clearInterval(timerInterval);
             showEndScreen();
         } 
@@ -294,15 +295,14 @@ newHiscoreForm.addEventListener("submit", function (event) {
 answerListEl.addEventListener("click", function (event) {
     event.preventDefault();
     
-    var targetTag = event.target.tagName.toLowerCase();
-    if (targetTag !== "button") {
+    if (event.target.tagName.toLowerCase() !== "button") {
         return;
     }
 
-    // sessionProgress++;
-    console.log(sessionProgress);
-
-    if (targetTag === 'button' && event.target.textContent === thisQuestion.answer) {
+    // console.log(sessionProgress);
+    console.log(event.target.innerHTML);
+    console.log(thisQuestion.answer)
+    if (event.target.innerHTML === thisQuestion.answer) {
         // show "correct"
         sessionScore++;
     } else {
@@ -310,8 +310,7 @@ answerListEl.addEventListener("click", function (event) {
         secondsLeft -= 10;
     }
 
-    if (sessionProgress < questionCount && secondsLeft > 0) {
-        sessionProgress++;
+    if (sessionProgress <= questionCount && secondsLeft > 0) {
         showQuestion();
     } else if (sessionProgress === questionCount) {
         showEndScreen();
