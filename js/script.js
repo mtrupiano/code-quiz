@@ -135,6 +135,9 @@ function hideAllViews() {
     // clear out hiscore table
     document.querySelector("thead").innerHTML = "";
     document.querySelector("#hiscore-table-body").innerHTML = "";
+
+    // clear score from end screen
+    document.querySelector("#present-score").textContent = "";
 }
 
 function renderHomeView() {
@@ -189,7 +192,6 @@ function showEndScreen() {
     hideAllViews();
     endScreenSection.style.display = "inline";
     document.querySelector("#present-score").textContent = `${sessionScore} / ${questionCount}`;
-    // secondsLeft = 0;
 }
 
 // Render list of high scores stored in localStorage
