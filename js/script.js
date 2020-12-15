@@ -56,9 +56,10 @@ var promptHeaderEl  = document.querySelector("#prompt-header");
 var answerListEl    = document.querySelector("#answer-list");
 var timerEl         = document.querySelector("#timer");
 
-var endScreenSection = document.querySelector("#end-screen");
-var homeScreenSection = document.querySelector("#home");
-var hiscoreSection = document.querySelector("#hiscore-view");
+// Dom elements for the separate view sections
+var endScreenSection    = document.querySelector("#end-screen");
+var homeScreenSection   = document.querySelector("#home");
+var hiscoreSection      = document.querySelector("#hiscore-view");
 var questionFormSection = document.querySelector("#question-form");
 
 var newHiscoreForm = document.querySelector("#new-hiscore-form");
@@ -72,6 +73,32 @@ var sessionProgress = 0;    // Counter for progress through a quiz session
 
 var secondsLeft = quizLength; 
 
+// Set all views to hidden
+function hideAllViews() {
+    endScreenSection.style.display = "none";
+    homeScreenSection.style.display = "none";
+    hiscoreSection.style.display = "none";
+    questionFormSection.style.display = "none";
+
+    // clear out question form
+    promptHeaderEl.innerHTML = "";
+    answerListEl.innerHTML = "";
+
+    // clear out hiscore table
+    document.querySelector("thead").innerHTML = "";
+    document.querySelector("#hiscore-table-body").innerHTML = "";
+
+    // clear score from end screen
+    document.querySelector("#present-score").textContent = "";
+}
+
+// Show home view
+function renderHomeView() {
+    hideAllViews();
+    homeScreenSection.style.display = "inline";
+}
+
+// Select a question at random and load the content into the question form
 function showQuestion() {
     // clear the question header and list
     promptHeaderEl.innerHTML = "";
@@ -121,72 +148,20 @@ function showQuestion() {
         liEl.appendChild(newBtnEl);
         answerListEl.appendChild(liEl);
     }
-
-}
-
-function hideAllViews() {
-    endScreenSection.style.display      = "none";
-    homeScreenSection.style.display     = "none";
-    hiscoreSection.style.display        = "none";
-    questionFormSection.style.display   = "none";
-
-    // clear out question form
-    promptHeaderEl.innerHTML = "";
-    answerListEl.innerHTML = "";
-
-    // clear out hiscore table
-    document.querySelector("thead").innerHTML = "";
-    document.querySelector("#hiscore-table-body").innerHTML = "";
-
-    // clear score from end screen
-    document.querySelector("#present-score").textContent = "";
-}
-
-function renderHomeView() {
-    hideAllViews();
-    homeScreenSection.style.display = "inline";
-}
-
-
-var timerInterval;
-function runQuiz() {
-    hideAllViews();
-    usedQuestions.length = 0; // clear list of used questions
     
-    // Reset session progress, session score, and timer
-    sessionScore = 0;
-    sessionProgress = 0;
-    secondsLeft = quizLength;
-
-    var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft % 60) : ("0" + secondsLeft % 60);
-    timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
-
-    // Start quiz timer
-    timerInterval = setInterval(function () {
-        secondsLeft--;
-        var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft%60) : ("0" + secondsLeft%60);
-        timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
-
-        if (secondsLeft <= 0) {
-            clearInterval(timerInterval);
-            showEndScreen();
-        } 
-
-    }, 1000);
-
-    showQuestionFormSection();
-
-    showQuestion();
 }
 
+// Show section containing question form
 function showQuestionFormSection() {
+    hideAllViews();
     questionFormSection.style.display = "inline";
 }
 
+// Show the ending screen with form to submit user score
 function showEndScreen() {
 
     if (secondsLeft <= 0) {
-        document.querySelector("#times-up").textContent = "Time's up! ";    
+        document.querySelector("#times-up").textContent = "Time's up! ";
     } else {
         clearInterval(timerInterval)
     }
@@ -226,6 +201,38 @@ function showHiScores() {
         scoresTableBody.appendChild(newTableRow);
     }
 
+}
+
+// Main quiz engine
+var timerInterval;
+function runQuiz() {
+    hideAllViews();
+    usedQuestions.length = 0; // clear list of used questions
+    
+    // Reset session progress, session score, and timer
+    sessionScore = 0;
+    sessionProgress = 0;
+    secondsLeft = quizLength;
+
+    var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft % 60) : ("0" + secondsLeft % 60);
+    timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
+
+    // Start quiz timer
+    timerInterval = setInterval(function () {
+        secondsLeft--;
+        var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft%60) : ("0" + secondsLeft%60);
+        timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
+
+        if (secondsLeft <= 0) {
+            clearInterval(timerInterval);
+            showEndScreen();
+        } 
+
+    }, 1000);
+
+    showQuestionFormSection();
+
+    showQuestion();
 }
 
 // Start button on home view
@@ -302,12 +309,15 @@ answerListEl.addEventListener("click", function (event) {
 
     if (event.target.innerHTML === thisQuestion.answer) {
         // show "correct"
+        document.querySelector("#correct-msg").setAttribute("class", "animated");
         sessionScore++;
     } else {
         // show "incorrect"
+        document.querySelector("#incorrect-msg").setAttribute("class", "visible");
         secondsLeft -= 10;
     }
 
+    setTimeout(() => {}, 2000);
     if (sessionProgress < questionCount && secondsLeft > 0) {
         showQuestion();
     } else if (sessionProgress === questionCount) {

@@ -44,6 +44,14 @@ li button {
     margin-left: 40px;
 }
 
+.correct-msg {
+    opacity: 1;
+    transition: opacity 2s linear;
+}
+
+#correct-msg.animated {
+    opacity: 0;
+}
 
 .row {
     display: flex;
