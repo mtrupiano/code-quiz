@@ -30,23 +30,24 @@ var questions = [
         answer: "Type of 'o': object -- Type of 'o.age': number",
         wrongs: ["Type of 'o': object -- Type of 'o.age': integer", "Type of 'o': array -- Type of 'o.age': number", "Type of 'o': string -- Type of 'o.age': integer"],
         formatAnswersAsCode: true,
-    }//, {
-    //     prompt: "",
-    //     answer: "",
-    //     wrongs: ["", "", ""],
-    // }, {
-    //     prompt: "",
-    //     answer: "",
-    //     wrongs: ["", "", ""],
-    // }, {
-    //     prompt: "",
-    //     answer: "",
-    //     wrongs: ["", "", ""],
-    // }, {
-    //     prompt: "",
-    //     answer: "",
-    //     wrongs: ["", "", ""],
-    // }
+    }, {
+        prompt: "Which of the following correctly lists the elements of the box model from outside in?",
+        answer: "Margin, border, padding, content",
+        wrongs: ["Border, margin, padding, content", "Margin, padding, border, content", "Padding, border, margin, content"],
+    }, {
+        prompt: "HTML is most accurately described as a:",
+        answer: "Markup language",
+        wrongs: ["Programming language", "Scripting language", "Tagging language"],
+    }, {
+        prompt: "Select the option that shows the correct syntax for the opening tag of a 'div' element that has a class attribute of 'container'.",
+        answer: "&lt;div class='container'&gt;",
+        wrongs: ["&lt;div attribute='container'&gt;", "&lt;div container='class'&gt;", "div.container"],
+        formatAnswersAsCode: true,
+    }, {
+        prompt: "A ________ is a keyword specifying which elements a group of CSS rules will apply to.",
+        answer: "Selector",
+        wrongs: ["Tag", "Attribute", "Property"],
+    }
 ]; 
 
 var startButton     = document.querySelector("#start-btn");
