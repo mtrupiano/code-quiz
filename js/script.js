@@ -123,7 +123,6 @@ function showQuestion() {
 }
 
 function hideAllViews() {
-
     endScreenSection.style.display      = "none";
     homeScreenSection.style.display     = "none";
     hiscoreSection.style.display        = "none";
@@ -143,6 +142,8 @@ function renderHomeView() {
     homeScreenSection.style.display = "inline";
 }
 
+
+var timerInterval;
 function runQuiz() {
     hideAllViews();
     usedQuestions.length = 0; // clear list of used questions
@@ -156,7 +157,7 @@ function runQuiz() {
     timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
 
     // Start quiz timer
-    var timerInterval = setInterval(function () {
+    timerInterval = setInterval(function () {
         secondsLeft--;
         var secondsStr = (secondsLeft % 60 >= 10) ? ("" + secondsLeft%60) : ("0" + secondsLeft%60);
         timerEl.textContent = `${Math.floor(secondsLeft / 60)}:${secondsStr} remaining`;
@@ -178,18 +179,17 @@ function showQuestionFormSection() {
 }
 
 function showEndScreen() {
+
     if (secondsLeft <= 0) {
-        document.querySelector("#times-up").innerHTML = "Time's up! ";
+        document.querySelector("#times-up").textContent = "Time's up! ";    
+    } else {
+        clearInterval(timerInterval)
     }
+
     hideAllViews();
     endScreenSection.style.display = "inline";
-    secondsLeft = 0;
-    document.querySelector("#present-score").innerHTML = `${sessionScore} / ${questionCount}`;
-    // show score
-    // present form for initial enter
-
-    
-
+    document.querySelector("#present-score").textContent = `${sessionScore} / ${questionCount}`;
+    // secondsLeft = 0;
 }
 
 // Render list of high scores stored in localStorage
@@ -219,7 +219,7 @@ function showHiScores() {
         newScoreEntry.textContent = scoresList[i].score;
         newTableRow.appendChild(newNameEntry);
         newTableRow.appendChild(newScoreEntry);
-        scoresTable.appendChild(newTableRow);
+        scoresTableBody.appendChild(newTableRow);
     }
 
 }
