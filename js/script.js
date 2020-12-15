@@ -192,7 +192,7 @@ function showEndScreen() {
 
     hideAllViews();
     endScreenSection.style.display = "inline";
-    document.querySelector("#present-score").textContent = `${sessionScore} / ${questionCount}`;
+    document.querySelector("#present-score").textContent = `${sessionScore} / ${questions.length}`;
 }
 
 // Render list of high scores stored in localStorage
@@ -299,24 +299,21 @@ answerListEl.addEventListener("click", function (event) {
         return;
     }
 
-    sessionProgress++;
+    // sessionProgress++;
+    console.log(sessionProgress);
 
     if (targetTag === 'button' && event.target.textContent === thisQuestion.answer) {
         // show "correct"
         sessionScore++;
-        if (sessionProgress < questionCount && secondsLeft > 0) {
-            showQuestion();
-        } else if (sessionProgress === questionCount) {
-            showEndScreen();
-        }
-
     } else {
         // show "incorrect"
         secondsLeft -= 10;
-        if (sessionProgress < questionCount && secondsLeft > 0) {
-            showQuestion();
-        } else if (sessionProgress === questionCount) {
-            showEndScreen();
-        }
+    }
+
+    if (sessionProgress < questionCount && secondsLeft > 0) {
+        sessionProgress++;
+        showQuestion();
+    } else if (sessionProgress === questionCount) {
+        showEndScreen();
     }
 });
