@@ -1,1 +1,5 @@
 # code-quiz
+
+This page runs a short quiz on some basic web development topics. The quiz is run entirely on a single html document and uses JavaScript and DOM manipulation to present different views and run the quiz logic.
+
+Upon starting the quiz the user will be presented with multiple-choice questions one by one until they answer all 10 or until the timer elapses. The questions are presented in a random order and the answer choices are listed in a random order. Incorrect answers are punished by having 20 seconds knocked off the remaining time. Upon completion of the quiz the user will be prompted to enter their initials to have their score recorded. A list of scores is kept in client-side storage and the list is presented after the user enters their initials or when the 'View High Scores' button is selected.
