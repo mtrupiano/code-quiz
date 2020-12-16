@@ -100,11 +100,6 @@ function renderHomeView() {
 
 // Select a question at random and load the content into the question form
 function showQuestion() {
-    // Fade out correct/incorrect message
-    document.querySelector("correct-msg").textContent = "";
-    document.querySelector("#incorrect-msg").textContent = "";
-
-
     // clear the question header and list
     promptHeaderEl.innerHTML = "";
     answerListEl.innerHTML = ""; 
@@ -305,25 +300,33 @@ newHiscoreForm.addEventListener("submit", function (event) {
 });
 
 // Event listener for list of answer buttons
-answerListEl.addEventListener("click", function (event) {
+answerListEl.addEventListener("click", async function (event) {
     event.preventDefault();
     
     if (event.target.tagName.toLowerCase() !== "button") {
         return;
     }
 
+    var message;
     if (event.target.innerHTML === thisQuestion.answer) {
-        // show "correct"
-        document.querySelector("#correct-msg").textContent = "Correct!"
-        document.querySelector("#correct-msg").setAttribute("class", "fade-in");
+        message = document.querySelector("#correct-msg");
+        message.textContent = "Correct!";
         sessionScore++;
     } else {
-        // show "incorrect"
-        document.querySelector("#incorrect-msg").setAttribute("class", "visible");
-        secondsLeft -= 10;
+        message = document.querySelector("#incorrect-msg")
+        message.textContent = "Incorrect! (-20s)";
+        secondsLeft -= 20;
     }
 
-    setTimeout(() => {}, 2000);
+    message.style.visibiity = 0;
+    message.style.opacity = 0;
+
+    setTimeout(function () {
+        message.textContent = "";
+        message.style.visibiity = 1;
+        message.style.opacity = 1;
+    }, 750);
+
     if (sessionProgress < questionCount && secondsLeft > 0) {
         showQuestion();
     } else if (sessionProgress === questionCount) {
