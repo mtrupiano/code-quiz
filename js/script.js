@@ -300,7 +300,7 @@ newHiscoreForm.addEventListener("submit", function (event) {
 });
 
 // Event listener for list of answer buttons
-answerListEl.addEventListener("click", async function (event) {
+answerListEl.addEventListener("click", function (event) {
     event.preventDefault();
     
     if (event.target.tagName.toLowerCase() !== "button") {
