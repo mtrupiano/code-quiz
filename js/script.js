@@ -100,6 +100,11 @@ function renderHomeView() {
 
 // Select a question at random and load the content into the question form
 function showQuestion() {
+    // Fade out correct/incorrect message
+    document.querySelector("correct-msg").textContent = "";
+    document.querySelector("#incorrect-msg").textContent = "";
+
+
     // clear the question header and list
     promptHeaderEl.innerHTML = "";
     answerListEl.innerHTML = ""; 
@@ -309,7 +314,8 @@ answerListEl.addEventListener("click", function (event) {
 
     if (event.target.innerHTML === thisQuestion.answer) {
         // show "correct"
-        document.querySelector("#correct-msg").setAttribute("class", "animated");
+        document.querySelector("#correct-msg").textContent = "Correct!"
+        document.querySelector("#correct-msg").setAttribute("class", "fade-in");
         sessionScore++;
     } else {
         // show "incorrect"
